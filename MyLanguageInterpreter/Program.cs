@@ -10,15 +10,16 @@ namespace MyLanguageInterpreter
 		{
 			while(true)
 			{
-				Lexer lexer = new Lexer();
-				//try{
-				StreamReader st = new StreamReader("C:\\lex\\test.txt");
-                string input = st.ReadToEnd();
-				st.Close();
+				try
+				{
+                    Console.Write("Enter filepath: ");
+                    StreamReader st = new StreamReader(Console.ReadLine());
+					string input = st.ReadToEnd();
+					st.Close();
 					Console.WriteLine(input);
-					Console.ReadKey();
-					Console.WriteLine("Processing:...");
+					Console.WriteLine("Executing code:...\n");
 
+                    Lexer lexer = new Lexer();
                     lexer.LexLine(input);
 					lexer.finishLexing();
 
@@ -29,18 +30,17 @@ namespace MyLanguageInterpreter
 					reslover.resolve(statements);
 					interpreter.interpret(statements);
 
-					Console.WriteLine();
-					Console.WriteLine("Finished Processing");
+					Console.WriteLine("\nFinished executing.");
 					Console.ReadKey();
-				/*}
+				}
 				catch (Error err)
 				{
 					err.Log();
-				}*/
-				/*catch (Exception e) 
+				}
+				catch (Exception e)
 				{
 					Console.WriteLine(e.Message);
-				}*/
+				}
 			}
 		}
 	}
